@@ -3,6 +3,14 @@
 #include <algorithm>
 
 namespace iris {
+    // https://stackoverflow.com/a/25385766
+    std::string trim(const std::string base) {
+        std::string s(base);
+        const char* ws = " \t\n\r\f\v";
+        s.erase(0, s.find_first_not_of(ws));
+        s.erase(s.find_last_not_of(ws) + 1);
+        return s;
+    }
     std::string normalize_sentence(const std::string base) {
         std::string s(base);
         std::string result = "";
@@ -24,9 +32,7 @@ namespace iris {
                 i += 2;
             }
         }
-        const char* ws = " \t\n\r\f\v";
-        s.erase(0, s.find_first_not_of(ws));
-        s.erase(s.find_last_not_of(ws) + 1);
+        s = trim(s);
         if (s.length() == 0) return result;
         for(size_t i = 0; i < s.length(); ++i) {
             if ((s.at(i) == ' ' || s.at(i) == '_') && (i - 1 > 0 && (s.at(i - 1) == ' ' || s.at(i - 1) == '_'))) {
@@ -36,6 +42,7 @@ namespace iris {
         }
         return result;
     }
+    // https://stackoverflow.com/a/7408245 (2)
     std::vector<std::string> split(const std::string s) {
         std::vector<std::string> result;
         if (s.length() == 0) return result;
@@ -56,11 +63,9 @@ namespace iris {
         try {
             std::ifstream ifs(filepath);
             if (ifs) {
-                const char* ws = " \t\n\r\f\v";
                 std::string stopword;
                 while (ifs >> stopword) {
-                    stopword.erase(0, stopword.find_first_not_of(ws));
-                    stopword.erase(stopword.find_last_not_of(ws) + 1);
+                    stopword = trim(stopword);
                     if (stopword.length() > 0) {
                         stopwords.push_back(stopword);
                     }
@@ -107,9 +112,7 @@ namespace iris {
                 result += str.at(i);
             }
         }
-        const char* ws = " \t\n\r\f\v";
-        result.erase(0, result.find_first_not_of(ws));
-        result.erase(result.find_last_not_of(ws) + 1);
+        result = trim(result);
         return result;
     }
     std::vector<std::string> word_tokenize(const std::string base, const std::vector<std::string> stopwords) {

@@ -5,6 +5,7 @@
 #include <vector>
 
 namespace iris {
+    std::string trim(const std::string);
     std::string normalize_sentence(const std::string);
     std::vector<std::string> split(const std::string);
     std::vector<std::string> load_stopwords(const std::string);
