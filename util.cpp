@@ -85,16 +85,11 @@ namespace iris {
     std::vector<std::string> tokenize(const std::string base, const std::vector<std::string> stopwords) {
         std::string str(base);
         str = normalize_sentence(str);
-        std::vector<std::string> tmp = split(str);
-        if (stopwords.size() == 0) {
-            if(tmp.size() > 0) {
-                std::sort(tmp.begin(), tmp.end());
+        std::vector<std::string> tokens = split(str);
+        if (stopwords.size() > 0) {
+            for(auto it = tokens.begin(); it != tokens.end(); ++it) {
+                if (is_stopword(*it, stopwords)) tokens.erase(it);
             }
-            return tmp;
-        }
-        std::vector<std::string> tokens;
-        for (auto token : tmp) {
-            if (!is_stopword(token, stopwords)) tokens.push_back(token);
         }
         if (tokens.size() > 0) {
             std::sort(tokens.begin(), tokens.end());
@@ -119,16 +114,11 @@ namespace iris {
         std::string str(base);
         str = normalize_sentence(str);
         str = remove_punctuation(str);
-        std::vector<std::string> tmp = split(str);
-        if (stopwords.size() == 0) {
-            if(tmp.size() > 0) {
-                std::sort(tmp.begin(), tmp.end());
+        std::vector<std::string> tokens = split(str);
+        if (stopwords.size() > 0) {
+            for(auto it = tokens.begin(); it != tokens.end(); ++it) {
+                if (is_stopword(*it, stopwords)) tokens.erase(it);
             }
-            return tmp;
-        }
-        std::vector<std::string> tokens;
-        for (auto token : tmp) {
-            if (!is_stopword(token, stopwords)) tokens.push_back(token);
         }
         if (tokens.size() > 0) {
             std::sort(tokens.begin(), tokens.end());
