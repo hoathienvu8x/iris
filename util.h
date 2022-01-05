@@ -5,11 +5,13 @@
 #include <vector>
 
 namespace iris {
-    std::string normalize_sentence(std::string);
-    std::vector<std::string> split(std::string);
-    std::vector<std::string> load_stopwords(std::string);
-    bool is_stopword(std::string, std::vector<std::string>);
-    std::vector<std::string> tokenize(std::string, std::vector<std::string>);
+    std::string normalize_sentence(const std::string);
+    std::vector<std::string> split(const std::string);
+    std::vector<std::string> load_stopwords(const std::string);
+    bool is_stopword(const std::string, const std::vector<std::string>);
+    std::vector<std::string> tokenize(const std::string, const std::vector<std::string>);
+    std::string remove_punctuation(const std::string);
+    std::vector<std::string> word_tokenize(const std::string, const std::vector<std::string>);
 }
 
 #endif
