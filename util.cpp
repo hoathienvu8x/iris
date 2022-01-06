@@ -3,6 +3,7 @@
 #include <algorithm>
 
 namespace iris {
+    static const std::string symbols = "@`#$%&~|[]<>'(){}*+-=;,?.!:\"/";
     // https://stackoverflow.com/a/25385766
     std::string trim(const std::string base) {
         std::string s(base);
@@ -15,16 +16,15 @@ namespace iris {
         std::string s(base);
         std::string result = "";
         if (s.length() == 0) return result;
-        std::string source[4] = { "…", "“", "”", "" };
-        std::string replace[4] = { "...", "\"", "\""," " };
-        for(int i = 0; i < 4; ++i) {
+        std::string source[4] = { "…", "“", "”", "" };
+        std::string replace[4] = { "...", "\"", "\"", " " };
+        for(int i = 0; i < 3; ++i) {
             size_t position = s.find(source[i]);
             while (position != std::string::npos) {
                 s.replace(position, source[i].length(), replace[i]);
                 position = s.find(source[i], position + sizeof(replace[i]));
             }
         }
-        const std::string symbols = "@`#$%&~|[]<>'(){}*+-=;,?.!:\"/";
         for(size_t i = 0; i < s.length(); ++i) {
             if (symbols.find(s.at(i)) != std::string::npos) {
                 s.insert(i+1, " ");
@@ -97,7 +97,6 @@ namespace iris {
         return tokens;
     }
     std::string remove_punctuation(const std::string str) {
-        const std::string symbols = "@`#$%&~|[]<>'(){}*+-=;,?.!:\"/";
         std::string result = "";
         for(size_t i = 0; i < str.length(); ++i) {
             if (symbols.find(str.at(i)) == std::string::npos) {
