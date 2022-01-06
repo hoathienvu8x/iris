@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 namespace iris {
     std::string trim(const std::string);
@@ -13,6 +14,7 @@ namespace iris {
     std::vector<std::string> tokenize(const std::string, const std::vector<std::string>);
     std::string remove_punctuation(const std::string);
     std::vector<std::string> word_tokenize(const std::string, const std::vector<std::string>);
+    std::string convert_html_special_chars(const std::string, const std::unordered_map<std::string, std::string>);
 }
 
 #endif

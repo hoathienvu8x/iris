@@ -125,4 +125,17 @@ namespace iris {
         }
         return tokens;
     }
+    std::string convert_html_special_chars(const std::string base, const std::unordered_map<std::string, std::string> translate) {
+        std::string doc(base);
+        size_t index = 0;
+        for (const auto &mt : translate) {
+            const std::string html_sym = mt.first;
+            const std::string replace = mt.second;
+            while ((index = doc.find(html_sym)) != std::string::npos) {
+                doc.replace(index, html_sym.length(), replace);
+                index += replace.length();
+            }
+        }
+        return doc;
+    }
 }
